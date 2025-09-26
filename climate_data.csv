@@ -11,3 +11,14 @@ Sep,115,39
 Oct,111,54
 Nov,321,22
 Dec,454,12
+
+path = (r"D:\climate_data.csv")
+read = pd.read_csv(path)
+
+plt.bar(read['Month'], read['Rainfall'], color='skyblue', label='Rainfall')
+plt.ylabel("Rainfall[mm]", color='skyblue', weight='bold', size=14)
+plt.title("Sample Rainfall Graph", weight='bold', size=14)
+
+plt.legend()
+plt.grid(True, linestyle='--')
+plt.show()
