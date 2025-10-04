@@ -18,3 +18,42 @@ Year,Rainfall(mm),Min_Temp(C),Max_Temp(C)
 2016,38,4,41
 2017,39,6,39
 2018,40,8,38
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Data
+year = list(range(2000, 2019))
+Rainfall = [10, 20, 1, 14, 12, 25, 22, 30, 32, 33, 35, 26, 27, 29, 40, 35, 38, 39, 40]
+Min_Temp = [5, 7, 8, 6, 10, 4, 3, 6, 7, 9, 2, 5, 3, 9, 2, 5, 4, 6, 8]
+Max_Temp = [20, 25, 26, 29, 30, 35, 33, 37, 38, 39, 40, 42, 45, 30, 44, 45, 41, 39, 38]
+
+# Save to CSV file
+data = pd.DataFrame({
+    'Year': year,
+    'Rainfall(mm)': Rainfall,
+    'Min_Temp(C)': Min_Temp,
+    'Max_Temp(C)': Max_Temp
+})
+data.to_csv("climograph_data.csv", index=False)
+print("✅ CSV file saved successfully!")
+
+# Plot
+fig, rx = plt.subplots()
+plt.title("Climograph", color='blue', size=12, weight='bold')
+rx.bar(year, Rainfall, color='skyblue', label='Rainfall')
+plt.legend(loc='upper left')
+plt.xticks(year)
+rx.set_xticks(year)
+rx.set_xticklabels([str(years) for years in year], rotation=45, size=8)
+plt.ylabel("Rainfall [mm]", color='blue', size=12, weight='bold')
+
+tx = rx.twinx()
+tx.plot(year, Min_Temp, color='green', label='Min Temp', marker='o')
+tx.plot(year, Max_Temp, color='red', marker='o', label='Max Temp')
+plt.ylabel("Temperature [C]")
+plt.legend(loc='upper right')
+
+plt.tight_layout()
+plt.grid(True, color='green')
+plt.show()
